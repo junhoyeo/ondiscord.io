@@ -82,6 +82,9 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   const canvas = createCanvas(1280, 640);
   const context = canvas.getContext('2d');
 
+  context.fillStyle = 'black';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
   if (!!splashImage) {
     context.drawImage(
       splashImage.image,
