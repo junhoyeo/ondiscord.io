@@ -83,38 +83,19 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
     splashImage.height,
   );
 
-  // prepare clip
   const x = 100;
   const y = 100;
-  const radius = iconImage.width / 2;
-  const width = iconImage.width;
-  const height = iconImage.height;
   context.beginPath();
-  context.moveTo(x + radius, y);
-  context.lineTo(x + width - radius, y);
-  context.quadraticCurveTo(x + width, y, x + width, y + radius);
-  context.lineTo(x + width, y + height - radius);
-  context.quadraticCurveTo(
-    x + width,
-    y + height,
-    x + width - radius,
-    y + height,
+  context.arc(
+    iconImage.width / 2 + x,
+    iconImage.width / 2 + y,
+    iconImage.width / 2,
+    0,
+    Math.PI * 2,
   );
-  context.lineTo(x + radius, y + height);
-  context.quadraticCurveTo(x, y + height, x, y + height - radius);
-  context.lineTo(x, y + radius);
-  context.quadraticCurveTo(x, y, x + radius, y);
-  context.closePath();
+  context.fill();
   context.clip();
-
-  // draw and restore context
-  context.drawImage(
-    iconImage.image,
-    x + 5,
-    y + 5,
-    iconImage.width - 10,
-    iconImage.height - 10,
-  );
+  context.drawImage(iconImage.image, x, y, iconImage.width, iconImage.height);
   context.closePath();
   context.restore();
 
