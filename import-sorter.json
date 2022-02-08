@@ -1,0 +1,30 @@
+{
+  "importSorter.generalConfiguration.exclude": [".*\\.d\\.ts"],
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.hasSemicolon": true,
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "type": "importMember",
+      "regex": "^$",
+      "orderLevel": 10,
+      "disableSort": true
+    },
+    {
+      "regex": "^\\.",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^@src",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^@images",
+      "orderLevel": 50
+    },
+    {
+      "regex": "^[@]",
+      "orderLevel": 30
+    }
+  ]
+}
