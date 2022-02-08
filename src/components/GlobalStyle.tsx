@@ -1,5 +1,11 @@
+import dedent from 'dedent';
 import { createGlobalStyle } from 'styled-components';
 import normalize from 'styled-normalize';
+
+export const systemFontStack = dedent`
+  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif
+`;
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -11,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    font-family: ${systemFontStack};
   }
 
   a {
