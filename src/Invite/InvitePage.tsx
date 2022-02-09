@@ -34,7 +34,11 @@ type Params = ParsedUrlQuery & {
 export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   params,
 }) => {
-  const invite = await getDiscordInvite(params.inviteId);
+  const invite = await getDiscordInvite(params.inviteId).catch(() => null);
+  if (!invite) {
+    return { notFound: true };
+  }
+
   const title = invite.guild.name ?? '';
 
   let description: string = invite.guild.description ?? '';
