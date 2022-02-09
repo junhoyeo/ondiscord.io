@@ -33,7 +33,10 @@ export const wrapIntoLines = (
   const lines = [];
   let currentLine = words[0];
 
-  words.forEach((word) => {
+  words.forEach((word, index) => {
+    if (index === 0) {
+      return;
+    }
     const width = context.measureText(currentLine + ` ${word}`).width;
     if (width < maxWidth) {
       currentLine += ` ${word}`;
