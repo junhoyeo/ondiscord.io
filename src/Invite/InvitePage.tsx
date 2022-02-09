@@ -66,11 +66,13 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   ].map((v) => v.toLocaleString());
   description += `${presenceCount} Online / ${memberCount} Members`;
 
+  const ROOT_URL = 'https://discord-alphaworks-team.vercel.app';
+
   return {
     props: {
       details: { title, description },
       inviteURL: `https://discord.com/invite/${params.inviteId}`,
-      OGImageURL: `/api/invite/${params.inviteId}`,
+      OGImageURL: `${ROOT_URL}/api/invite/${params.inviteId}`,
     },
   };
 };
