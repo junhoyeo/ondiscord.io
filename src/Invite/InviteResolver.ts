@@ -5,8 +5,8 @@ import path, { join } from 'path';
 import { createCanvas, GlobalFonts, Image, SKRSContext2D } from '@napi-rs/canvas';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-import { allowCORS } from './_lib/allowCORS';
-import { getDiscordInvite } from './_lib/getDiscordInvite';
+import { allowCORS } from './middlewares/allowCORS';
+import { getDiscordInvite } from './sdk/getDiscordInvite';
 
 type APIRequest = VercelRequest & {
   query: {

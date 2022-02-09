@@ -1,1 +1,1 @@
-export { default } from '@/api/InviteResolver';
+export { default } from '@/Invite/InviteResolver';

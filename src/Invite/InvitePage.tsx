@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { getDiscordInvite } from '@/api/_lib/getDiscordInvite';
+import { getDiscordInvite } from './sdk/getDiscordInvite';
 
 type Props = {
   details: {
