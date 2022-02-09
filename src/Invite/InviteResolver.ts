@@ -7,6 +7,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 
 import { allowCORS } from './middlewares/allowCORS';
 import { getDiscordInvite } from './sdk/getDiscordInvite';
+import { fillMultiLineText, wrapIntoLines } from './utils/canvas';
 
 type APIRequest = VercelRequest & {
   query: {
@@ -129,59 +130,10 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   context.shadowColor = 'rgba(0, 0, 0, 0.85)';
   context.shadowBlur = 16;
 
-  let description: string = details.description ?? '';
-
-  function fillMultiLineText(
-    context: SKRSContext2D,
-    lines: string[],
-    x: number,
-    y: number,
-    lineHeight: number = 1,
-  ) {
-    const height = context.measureText('M').width * lineHeight;
-    lines.forEach((line, index) => {
-      const isLastLine = index === lines.length - 1;
-      const hasDescription = lines.length > 1;
-      if (isLastLine && hasDescription) {
-        context.fillStyle = 'rgba(255, 255, 255, 0.65)';
-        y += height / 2;
-      }
-      context.fillText(line, x, y);
-      y += height;
-    });
-  }
-
-  function wrapIntoLines(
-    context: SKRSContext2D,
-    text: string,
-    maxWidth: number,
-  ) {
-    if (!text) {
-      return [];
-    }
-
-    const words = text.split(' ');
-    const lines = [];
-    let currentLine = words[0];
-
-    words.forEach((word) => {
-      const width = context.measureText(currentLine + ` ${word}`).width;
-      if (width < maxWidth) {
-        currentLine += ` ${word}`;
-      } else {
-        lines.push(currentLine);
-        currentLine = word;
-      }
-    });
-
-    lines.push(currentLine);
-    return lines;
-  }
-
+  const description: string = details.description ?? '';
   const lines = wrapIntoLines(context, description, canvas.width - 200);
-  lines.push(
-    `${details.presenceCount.toLocaleString()} Online / ${details.memberCount.toLocaleString()} Members`,
-  );
+  const statistics = `${details.presenceCount.toLocaleString()} Online / ${details.memberCount.toLocaleString()} Members`;
+  lines.push(statistics);
   fillMultiLineText(context, lines, 100, 440, 1.45);
 
   const buffer = await canvas.encode('png');
