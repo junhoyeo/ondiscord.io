@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
     return { notFound: true };
   }
 
-  const title = invite.guild.name ?? '';
+  const title = `${invite.guild.name ?? 'Unknown'} | Discord`;
 
   let description: string = invite.guild.description ?? '';
   if (!!description) {
@@ -65,8 +65,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
     invite.approximate_member_count,
   ].map((v) => v.toLocaleString());
   description += `${presenceCount} Online / ${memberCount} Members`;
-
-  console.log(title, description);
 
   return {
     props: {
