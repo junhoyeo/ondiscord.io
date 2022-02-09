@@ -1,6 +1,8 @@
 import axios from 'axios';
+import fs from 'fs';
+import path, { join } from 'path';
 
-import { createCanvas, Image } from '@napi-rs/canvas';
+import { createCanvas, GlobalFonts, Image } from '@napi-rs/canvas';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 import { allowCORS } from './_lib/allowCORS';
@@ -11,6 +13,10 @@ type APIRequest = VercelRequest & {
     inviteId: string;
   };
 };
+
+const dir = path.resolve('./public', 'fonts');
+GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-ExtraBold.ttf')));
+GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-SemiBold.ttf')));
 
 type url = string;
 const getBufferFromURL = async (url: url): Promise<Buffer> => {
@@ -50,7 +56,7 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   const inviteDetail = await getDiscordInvite(inviteId);
 
   const name = inviteDetail.guild.name;
-  const description = inviteDetail.guild.description;
+  const _description = inviteDetail.guild.description;
   const channel = inviteDetail.channel.name;
 
   const memberCount = inviteDetail.approximate_member_count;
@@ -66,7 +72,7 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
 
   const details = {
     name,
-    description,
+    description: _description,
     channel,
     memberCount,
     presenceCount,
@@ -95,8 +101,9 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
     );
   }
 
+  context.save();
   const x = 100;
-  const y = 100;
+  const y = 70;
   context.beginPath();
   context.arc(
     iconImage.width / 2 + x,
@@ -110,6 +117,25 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   context.drawImage(iconImage.image, x, y, iconImage.width, iconImage.height);
   context.closePath();
   context.restore();
+
+  context.font = '800 92px Poppins';
+  context.fillStyle = 'white';
+  context.shadowColor = 'rgba(0, 0, 0, 0.45)';
+  context.shadowBlur = 24;
+  context.fillText(details.name, 100, 370);
+
+  context.font = '600 32px Poppins';
+  context.fillStyle = 'white';
+  context.shadowColor = 'rgba(0, 0, 0, 0.85)';
+  context.shadowBlur = 16;
+
+  let description: string = details.description ?? '';
+  if (!!description) {
+    description += ' | ';
+  }
+  description += `${details.presenceCount.toLocaleString()} Online / ${details.memberCount.toLocaleString()} Members`;
+
+  context.fillText(description, 100, 460);
 
   const buffer = await canvas.encode('png');
 
