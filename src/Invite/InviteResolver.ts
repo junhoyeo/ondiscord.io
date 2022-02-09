@@ -43,7 +43,7 @@ const getImageFromURL = async (params: ImageInput) => {
   img.height = params.height;
   return { image: img, ...params };
 };
-const loadImages = (images: ImageInput[]) =>
+const getImages = (images: ImageInput[]) =>
   Promise.all(images.map(getImageFromURL));
 
 const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
@@ -57,13 +57,11 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   const inviteDetail = await getDiscordInvite(inviteId);
 
   const name = inviteDetail.guild.name;
-  const _description = inviteDetail.guild.description;
-  const channel = inviteDetail.channel.name;
+  const description = inviteDetail.guild.description;
 
   const memberCount = inviteDetail.approximate_member_count;
   const presenceCount = inviteDetail.approximate_presence_count;
 
-  const inviteURL = `https://discord.com/invite/${inviteId}`;
   const iconURL = !!inviteDetail.guild.icon
     ? `https://cdn.discordapp.com/icons/${inviteDetail.guild.id}/${inviteDetail.guild.icon}.webp?size=128`
     : null;
@@ -71,19 +69,9 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
     ? `https://cdn.discordapp.com/splashes/${inviteDetail.guild.id}/${inviteDetail.guild.splash}.jpg?size=4096`
     : null;
 
-  const details = {
-    name,
-    description: _description,
-    channel,
-    memberCount,
-    presenceCount,
-    inviteURL,
-    iconURL,
-    splashURL,
-  };
-  const [iconImage, splashImage] = await loadImages([
-    { url: details.iconURL, width: 200, height: 200 },
-    { url: details.splashURL, width: 1280, height: 640 },
+  const [iconImage, splashImage] = await getImages([
+    { url: iconURL, width: 200, height: 200 },
+    { url: splashURL, width: 1280, height: 640 },
   ]);
 
   const canvas = createCanvas(1280, 640);
@@ -123,16 +111,15 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   context.fillStyle = 'white';
   context.shadowColor = 'rgba(0, 0, 0, 0.45)';
   context.shadowBlur = 24;
-  context.fillText(details.name, 100, 370);
+  context.fillText(name, 100, 370);
 
   context.font = '600 32px Poppins';
   context.fillStyle = 'white';
   context.shadowColor = 'rgba(0, 0, 0, 0.85)';
   context.shadowBlur = 16;
 
-  const description: string = details.description ?? '';
   const lines = wrapIntoLines(context, description, canvas.width - 200);
-  const statistics = `${details.presenceCount.toLocaleString()} Online / ${details.memberCount.toLocaleString()} Members`;
+  const statistics = `${presenceCount.toLocaleString()} Online / ${memberCount.toLocaleString()} Members`;
   lines.push(statistics);
   fillMultiLineText(context, lines, 100, 440, 1.45);
 
