@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { getDiscordInvite } from '@/api/_lib/getDiscordInvite';
 
@@ -10,18 +10,33 @@ type Props = {
     title: string;
     description: string;
   };
+  inviteURL: string;
   OGImageURL: string;
 };
 
-export default function ImagePage({ details, OGImageURL }: Props) {
+export default function ImagePage({ details, inviteURL, OGImageURL }: Props) {
+  useEffect(() => {
+    window.location.href = inviteURL;
+  }, [inviteURL]);
+
   return (
     <React.Fragment>
       <Head>
         <title>{details.title}</title>
+        <meta name="description" content={details.description} />
+
+        <meta property="og:title" content={details.title} />
+        <meta property="og:description" content={details.description} />
+        <meta property="og:image" content={OGImageURL} />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={details.title} />
         <meta name="twitter:description" content={details.description} />
         <meta name="twitter:image" content={OGImageURL} />
+
+        <noscript>
+          <meta httpEquiv="refresh" content={`0; url=${inviteURL}`} />
+        </noscript>
       </Head>
     </React.Fragment>
   );
@@ -56,6 +71,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   return {
     props: {
       details: { title, description },
+      inviteURL: `https://discord.com/invite/${params.inviteId}`,
       OGImageURL: `/api/invite/${params.inviteId}`,
     },
   };
