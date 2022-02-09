@@ -2,6 +2,11 @@ import Head from 'next/head';
 import React from 'react';
 
 import { GlobalStyle } from '@/components/GlobalStyle';
+import { createTheme, NextUIProvider } from '@nextui-org/react';
+
+const darkTheme = createTheme({
+  type: 'dark',
+});
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -27,7 +32,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="manifest" href="/site.webmanifest" />
         <GlobalStyle />
       </Head>
-      <Component {...pageProps} />
+      <NextUIProvider theme={darkTheme}>
+        <Component {...pageProps} />
+      </NextUIProvider>
     </React.Fragment>
   );
 }
