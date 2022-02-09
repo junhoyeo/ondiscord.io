@@ -1,7 +1,9 @@
 {
-  "name": "discord.alphaworks.team",
+  "name": "ondiscord.io",
   "version": "1.0.0",
   "private": true,
+  "author": "Junho Yeo <i@junho.io>",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

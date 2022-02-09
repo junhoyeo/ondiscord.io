@@ -36,7 +36,7 @@ const HomePage = () => {
         <Input disabled value={inviteId} />
       </FieldContainer>
       <FieldContainer>
-        <Label>❤️ from Alphaworks</Label>
+        <Label>Generated Link</Label>
         <Input disabled value={shareableURL} />
       </FieldContainer>
     </Container>

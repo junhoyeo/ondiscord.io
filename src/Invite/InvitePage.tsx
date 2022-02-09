@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 
 import { getDiscordInvite } from './sdk/getDiscordInvite';
 
+const ROOT_URL = 'https://ondiscord.io';
+
 type Props = {
   details: {
     title: string;
@@ -65,8 +67,6 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
     invite.approximate_member_count,
   ].map((v) => v.toLocaleString());
   description += `${presenceCount} Online / ${memberCount} Members`;
-
-  const ROOT_URL = 'https://discord-alphaworks-team.vercel.app';
 
   return {
     props: {
