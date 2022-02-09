@@ -1,13 +1,13 @@
-import axios from 'axios';
 import fs from 'fs';
 import path, { join } from 'path';
 
-import { createCanvas, GlobalFonts, Image, SKRSContext2D } from '@napi-rs/canvas';
+import { createCanvas, GlobalFonts } from '@napi-rs/canvas';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 import { allowCORS } from './middlewares/allowCORS';
 import { getDiscordInvite } from './sdk/getDiscordInvite';
 import { fillMultiLineText, wrapIntoLines } from './utils/canvas';
+import { getImages } from './utils/image';
 
 type APIRequest = VercelRequest & {
   query: {
@@ -18,33 +18,6 @@ type APIRequest = VercelRequest & {
 const dir = path.resolve('./public', 'fonts');
 GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-ExtraBold.ttf')));
 GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-SemiBold.ttf')));
-
-type url = string;
-const getBufferFromURL = async (url: url): Promise<Buffer> => {
-  if (url.startsWith('data:image/')) {
-    return Buffer.from(url, 'utf-8');
-  }
-  const response = await axios.get(url, { responseType: 'arraybuffer' });
-  return Buffer.from(response.data, 'utf-8');
-};
-
-type ImageInput = {
-  url: url | null;
-  width: number;
-  height: number;
-};
-const getImageFromURL = async (params: ImageInput) => {
-  if (!params.url) {
-    return null;
-  }
-  const img = new Image();
-  img.src = await getBufferFromURL(params.url);
-  img.width = params.width;
-  img.height = params.height;
-  return { image: img, ...params };
-};
-const getImages = (images: ImageInput[]) =>
-  Promise.all(images.map(getImageFromURL));
 
 const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   const inviteId = req.query.inviteId;
