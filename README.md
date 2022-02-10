@@ -2,11 +2,20 @@
 
 > 👾 Wrap invite links from [Discord](https://discord.com/) **with Metadata**
 
-Uses [`@napi-rs/canvas`](https://github.com/Brooooooklyn/canvas) to render images server-side.
+- Uses [`@napi-rs/canvas`](https://github.com/Brooooooklyn/canvas) to render images server-side.
+- Server metrics are shown to source legitimacy
+  - Number of members online
+  - Total members joined
 
 |            Before             |            After             |
 | :---------------------------: | :--------------------------: |
 | ![](./docs/images/before.png) | ![](./docs/images/after.png) |
+
+## Usage
+
+Just pass the invite code or slug to `https://ondiscord.io` and you're ready to share!
+
+`https://discord.com/invite/sportium` 👉 `https://ondiscord.io/sportium`
 
 ## Results
 
@@ -23,3 +32,9 @@ Uses [`@napi-rs/canvas`](https://github.com/Brooooooklyn/canvas) to render image
 ### With Emojis and Description
 
 <img alt="RTFKT" src="./docs/images/rtfkt.png" width="600px" />
+
+## Roadmap
+
+- [ ] Frontend Generator & Dashboard
+- [ ] [Abit.ly](https://abit.ly)(fast URL shortener) Integration
+- [ ] Analytics Support
