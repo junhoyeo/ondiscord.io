@@ -1,5 +1,7 @@
 # ondiscord.io
 
+![Cover image](https://repository-images.githubusercontent.com/456924203/92a8c5e8-7491-4e44-92d9-87a546e77e56)
+
 > 👾 Wrap invite links from [Discord](https://discord.com/) **with Metadata**
 
 - Uses [`@napi-rs/canvas`](https://github.com/Brooooooklyn/canvas) to render images server-side.

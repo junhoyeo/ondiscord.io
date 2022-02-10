@@ -2,8 +2,9 @@ import Head from 'next/head';
 import React, { useEffect } from 'react';
 
 const schema = {
-  title: 'OnDiscord.io',
-  description: 'Discord links with Metadata',
+  title: 'OnDiscord.io | Discord links with Metadata',
+  description:
+    "Wrap invite links with Metadata. Three seconds and you're ready to share!",
   url: 'https://ondiscord.io',
   image:
     'https://repository-images.githubusercontent.com/456924203/92a8c5e8-7491-4e44-92d9-87a546e77e56',
