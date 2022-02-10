@@ -38,3 +38,4 @@ Just pass the invite code or slug to `https://ondiscord.io` and you're ready to 
 - [ ] Frontend Generator & Dashboard
 - [ ] [Abit.ly](https://abit.ly)(fast URL shortener) Integration
 - [ ] Analytics Support
+- [ ] Partner with Discord bots
