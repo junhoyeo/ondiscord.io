@@ -1,6 +1,6 @@
 # ondiscord.io
 
-> Generate 👾 Discord invite links **with metadata**
+> Generate 👾 Discord invite links **with Metadata**
 
 Uses [`@napi-rs/canvas`](https://github.com/Brooooooklyn/canvas) to render images server-side.
 
