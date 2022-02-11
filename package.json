@@ -5,8 +5,8 @@
   "author": "Junho Yeo <i@junho.io>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "env-cmd -f .env.debug next dev",
+    "build": "env-cmd -f ${ENVFILE:-.env.development} next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,6 +16,7 @@
     "@vercel/node": "^1.12.1",
     "axios": "^0.25.0",
     "dedent": "^0.7.0",
+    "env-cmd": "^10.1.0",
     "html-to-image": "^1.9.0",
     "next": "^12.0.10",
     "react": "17.0.2",
