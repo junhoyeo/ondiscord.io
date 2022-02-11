@@ -1,15 +1,9 @@
 import Head from 'next/head';
 import React from 'react';
 
-import { GlobalStyle } from '@/components/GlobalStyle';
 import { Analytics } from '@/utils/analytics';
-import { createTheme, NextUIProvider } from '@nextui-org/react';
 
 Analytics.initialize();
-
-const darkTheme = createTheme({
-  type: 'dark',
-});
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -33,11 +27,8 @@ function MyApp({ Component, pageProps }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <GlobalStyle />
       </Head>
-      <NextUIProvider theme={darkTheme}>
-        <Component {...pageProps} />
-      </NextUIProvider>
+      <Component {...pageProps} />
     </React.Fragment>
   );
 }
