@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect } from 'react';
 
+import { Analytics } from '@/utils/analytics';
+
 import { getDiscordInvite } from './sdk/getDiscordInvite';
 
 const ROOT_URL = 'https://ondiscord.io';
@@ -12,14 +14,22 @@ type Props = {
     title: string;
     description: string;
   };
+  inviteId: string;
   inviteURL: string;
   OGImageURL: string;
 };
 
-export default function ImagePage({ details, inviteURL, OGImageURL }: Props) {
+export default function ImagePage({ details, OGImageURL, ...props }: Props) {
   useEffect(() => {
-    window.location.href = inviteURL;
-  }, [inviteURL]);
+    const redirect = () => {
+      window.location.href = props.inviteURL;
+    };
+    Analytics.logEvent('view_invite', {
+      invite_id: props.inviteId,
+    }) //
+      .then(redirect)
+      .catch(redirect);
+  }, [props]);
 
   return (
     <React.Fragment>
@@ -37,7 +47,7 @@ export default function ImagePage({ details, inviteURL, OGImageURL }: Props) {
         <meta name="twitter:image" content={OGImageURL} />
 
         <noscript>
-          <meta httpEquiv="refresh" content={`0; url=${inviteURL}`} />
+          <meta httpEquiv="refresh" content={`0; url=${props.inviteURL}`} />
         </noscript>
       </Head>
     </React.Fragment>
@@ -71,6 +81,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   return {
     props: {
       details: { title, description },
+      inviteId: params.inviteId,
       inviteURL: `https://discord.com/invite/${params.inviteId}`,
       OGImageURL: `${ROOT_URL}/api/invite/${params.inviteId}`,
     },

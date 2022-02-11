@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 
+import { Analytics } from '@/utils/analytics';
+
 const schema = {
   title: 'OnDiscord.io | Discord links with Metadata',
   description:
@@ -11,7 +13,13 @@ const schema = {
 };
 const HomePage = () => {
   useEffect(() => {
-    window.location.href = 'https://github.com/junhoyeo/ondiscord.io';
+    const redirect = () => {
+      window.location.href = 'https://github.com/junhoyeo/ondiscord.io';
+    };
+
+    Analytics.logEvent('view_landing', {}) //
+      .then(redirect)
+      .catch(redirect);
   }, []);
 
   return (

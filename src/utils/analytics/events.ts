@@ -1,6 +1,6 @@
 export type AnalyticsEvent = {
-  view_landing: undefined;
-  view_discord_link: {
+  view_landing: {};
+  view_invite: {
     invite_id: string;
   };
 };

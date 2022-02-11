@@ -2,7 +2,10 @@ import Head from 'next/head';
 import React from 'react';
 
 import { GlobalStyle } from '@/components/GlobalStyle';
+import { Analytics } from '@/utils/analytics';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
+
+Analytics.initialize();
 
 const darkTheme = createTheme({
   type: 'dark',
