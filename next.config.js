@@ -11,6 +11,9 @@ const pick = (obj, keys) =>
 
 module.exports = withSvgr({
   reactStrictMode: true,
+  experimental: {
+    styledComponent: true,
+  },
   publicRuntimeConfig: pick(process.env, [
     'ENVIRONMENT', //
     'AMPLITUDE_API_KEY',

@@ -13,13 +13,7 @@ const schema = {
 };
 const HomePage = () => {
   useEffect(() => {
-    const redirect = () => {
-      window.location.href = 'https://github.com/junhoyeo/ondiscord.io';
-    };
-
-    Analytics.logEvent('view_landing', {}) //
-      .then(redirect)
-      .catch(redirect);
+    Analytics.logEvent('view_landing', {});
   }, []);
 
   return (
