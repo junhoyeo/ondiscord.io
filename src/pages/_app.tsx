@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
+import { GlobalStyle } from '@/components/GlobalStyle';
 import { Analytics } from '@/utils/analytics';
 
 Analytics.initialize();
@@ -27,7 +28,18 @@ function MyApp({ Component, pageProps }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
+          rel="stylesheet"
+        />
       </Head>
+      <GlobalStyle />
       <Component {...pageProps} />
     </React.Fragment>
   );
