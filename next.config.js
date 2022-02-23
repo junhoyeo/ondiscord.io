@@ -11,8 +11,8 @@ const pick = (obj, keys) =>
 
 module.exports = withSvgr({
   reactStrictMode: true,
-  experimental: {
-    styledComponent: true,
+  compiler: {
+    styledComponents: true,
   },
   publicRuntimeConfig: pick(process.env, [
     'ENVIRONMENT', //
