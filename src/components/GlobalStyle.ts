@@ -6,4 +6,9 @@ export const GlobalStyle = createGlobalStyle`
 
     background-color: #100f17;
   }
+
+  ::selection {
+    background: rgba(82, 252, 255, 0.4);
+    color: #ffffff;
+  }
 `;

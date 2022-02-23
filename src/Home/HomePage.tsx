@@ -147,4 +147,5 @@ const Button = styled.button`
 
 const Image = styled.img`
   margin-top: 36px;
+  -webkit-user-drag: none;
 `;
