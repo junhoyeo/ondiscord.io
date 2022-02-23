@@ -1,3 +1,4 @@
+import dedent from 'dedent';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
@@ -49,7 +50,14 @@ const HomePage = () => {
         <Button>GitHub</Button>
       </ButtonLinkWrapper>
 
-      <Image alt="" src="/images/preview.png" />
+      <Image
+        alt=""
+        src="/images/preview.png"
+        srcSet={dedent`
+          /images/preview.png 1x,
+          /images/preview@2x.png 2x
+        `}
+      />
     </Container>
   );
 };
@@ -71,6 +79,7 @@ const Container = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('/images/blurred.jpg');
+  z-index: 0;
 
   &::after {
     content: '';
@@ -81,6 +90,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     right: 0;
+    z-index: -1;
 
     background-image: url('/images/noise.png');
     opacity: 0.5;
