@@ -48,6 +48,8 @@ const HomePage = () => {
       >
         <Button>GitHub</Button>
       </ButtonLinkWrapper>
+
+      <Image alt="" src="/images/preview.png" />
     </Container>
   );
 };
@@ -55,19 +57,34 @@ const HomePage = () => {
 export default HomePage;
 
 const Container = styled.div`
+  padding-bottom: 60px;
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
 
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-image: radial-gradient(
-    100.23% 400.94% at 1.37% 45.63%,
-    #100f17 0%,
-    #100f17 56.25%,
-    #080645 100%
-  );
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('/images/blurred.jpg');
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-image: url('/images/noise.png');
+    opacity: 0.5;
+  }
 `;
 
 const Title = styled.h1`
@@ -116,4 +133,8 @@ const Button = styled.button`
   font-size: 16px;
   line-height: 100%;
   color: #000762;
+`;
+
+const Image = styled.img`
+  margin-top: 36px;
 `;
