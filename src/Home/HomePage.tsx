@@ -95,6 +95,10 @@ const Container = styled.div`
     background-image: url('/images/noise.png');
     opacity: 0.5;
   }
+
+  @media (max-width: 720px) {
+    padding-bottom: 0px;
+  }
 `;
 
 const Title = styled.h1`
@@ -111,6 +115,15 @@ const Title = styled.h1`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (max-width: 720px) {
+    margin-top: 100px;
+    font-size: 48px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 36px;
+  }
 `;
 const Description = styled.p`
   margin: 0;
@@ -122,10 +135,18 @@ const Description = styled.p`
   line-height: 24px;
 
   color: rgba(255, 255, 255, 0.66);
+
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
 `;
 
 const ButtonLinkWrapper = styled.a`
   margin-top: 32px;
+
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;
 const Button = styled.button`
   width: 158px;
@@ -143,9 +164,18 @@ const Button = styled.button`
   font-size: 16px;
   line-height: 100%;
   color: #000762;
+
+  &:active {
+    opacity: 0.65;
+  }
 `;
 
 const Image = styled.img`
   margin-top: 36px;
+  width: 100%;
   -webkit-user-drag: none;
+
+  @media (max-width: 1200px) {
+    width: 140%;
+  }
 `;
