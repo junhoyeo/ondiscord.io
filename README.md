@@ -17,7 +17,9 @@
 
 Just pass the invite code or slug to `https://ondiscord.io` and you're ready to share!
 
-`https://discord.com/invite/sportium` 👉 `https://ondiscord.io/sportium`
+- `https://discord.com/invite/sportium` 👉 `https://ondiscord.io/sportium`
+
+- `https://discord.gg/xhSWv9ynGV` 👉 `https://ondiscord.io/xhSWv9ynGV`
 
 ## Results
 
