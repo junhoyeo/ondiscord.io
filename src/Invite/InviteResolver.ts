@@ -18,6 +18,8 @@ type APIRequest = VercelRequest & {
 const dir = path.resolve('./public', 'fonts');
 GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-ExtraBold.ttf')));
 GlobalFonts.register(fs.readFileSync(join(dir, 'Poppins-SemiBold.ttf')));
+GlobalFonts.register(fs.readFileSync(join(dir, 'NotoSansKR-Bold.otf')));
+GlobalFonts.register(fs.readFileSync(join(dir, 'NotoSansKR-Medium.otf')));
 GlobalFonts.register(fs.readFileSync(join(dir, 'NotoColorEmoji.ttf')));
 
 const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
@@ -81,13 +83,13 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   context.closePath();
   context.restore();
 
-  context.font = '800 92px Poppins, Noto Color Emoji';
+  context.font = '800 92px Poppins, Noto Sans KR, Noto Color Emoji';
   context.fillStyle = 'white';
   context.shadowColor = 'rgba(0, 0, 0, 0.45)';
   context.shadowBlur = 24;
   context.fillText(name, 100, 370);
 
-  context.font = '600 32px Poppins, Noto Color Emoji';
+  context.font = '600 32px Poppins, Noto Sans KR, Noto Color Emoji';
   context.fillStyle = 'white';
   context.shadowColor = 'rgba(0, 0, 0, 0.85)';
   context.shadowBlur = 16;
