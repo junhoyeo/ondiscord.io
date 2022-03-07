@@ -56,14 +56,20 @@ const InviteResolver = async (req: APIRequest, res: VercelResponse) => {
   context.fillStyle = 'black';
   context.fillRect(0, 0, canvas.width, canvas.height);
 
+  const originalAspectRatio =
+    splashImage.originalWidth / splashImage.originalHeight;
+  const outputAspectRatio = splashImage.width / splashImage.height;
+
+  let outputWidth = splashImage.width;
+  let outputHeight = splashImage.height;
+  if (originalAspectRatio > outputAspectRatio) {
+    outputWidth = splashImage.height * originalAspectRatio;
+  } else if (originalAspectRatio < outputAspectRatio) {
+    outputHeight = splashImage.width / originalAspectRatio;
+  }
+
   if (!!splashImage) {
-    context.drawImage(
-      splashImage.image,
-      0,
-      0,
-      splashImage.width,
-      splashImage.height,
-    );
+    context.drawImage(splashImage.image, 0, 0, outputWidth, outputHeight);
   }
 
   context.save();
