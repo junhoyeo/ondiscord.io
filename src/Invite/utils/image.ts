@@ -1,4 +1,5 @@
 import axios from 'axios';
+import sizeOf from 'image-size';
 
 import { Image } from '@napi-rs/canvas';
 
@@ -24,7 +25,14 @@ const getImageFromURL = async (params: ImageInput) => {
   img.src = await getBufferFromURL(params.url);
   img.width = params.width;
   img.height = params.height;
-  return { image: img, ...params };
+
+  const dimensions = sizeOf(img.src);
+  return {
+    image: img,
+    ...params,
+    originalWidth: dimensions.width,
+    originalHeight: dimensions.height,
+  };
 };
 export const getImages = (images: ImageInput[]) =>
   Promise.all(images.map(getImageFromURL));
